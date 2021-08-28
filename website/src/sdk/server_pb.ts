@@ -116,13 +116,14 @@ export declare namespace InfoRes {
 		allowedIps: string,
 		dnsEnabled: boolean,
 		dnsAddress: string,
+		dnsUpstream: Array<string>,
 	}
 }
 
 export class InfoRes extends jspb.Message {
 
 	private static repeatedFields_ = [
-		
+		10,
 	];
 
 	constructor(data?: jspb.Message.MessageArray) {
@@ -203,6 +204,18 @@ export class InfoRes extends jspb.Message {
 		(jspb.Message as any).setProto3StringField(this, 9, value);
 	}
 
+	getDnsUpstream(): Array<string> {
+		return jspb.Message.getFieldWithDefault(this, 10, [""]);
+	}
+
+	setDnsUpstream(value: Array<string>): void {
+		(jspb.Message as any).setProto3StringField(this, 10, value);
+	}
+	
+	addDnsUpstream(value: string, index?: number): void {
+		return jspb.Message.addToRepeatedField(this, 10, value, index);
+	}
+
 	serializeBinary(): Uint8Array {
 		const writer = new jspb.BinaryWriter();
 		InfoRes.serializeBinaryToWriter(this, writer);
@@ -221,6 +234,7 @@ export class InfoRes extends jspb.Message {
 			dnsEnabled: this.getDnsEnabled(),
 			dnsAddress: this.getDnsAddress(),
 			
+			dnsUpstream: this.getDnsUpstream(),
 		};
 	}
 
@@ -260,6 +274,10 @@ export class InfoRes extends jspb.Message {
 		const field9 = message.getDnsAddress();
 		if (field9.length > 0) {
 			writer.writeString(9, field9);
+		}
+		const field10 = message.getDnsUpstream();
+		if (field10.length > 0) {
+			writer.writeRepeatedString(10, field10);
 		}
 	}
 
@@ -313,6 +331,10 @@ export class InfoRes extends jspb.Message {
 				const field9 = reader.readString()
 				message.setDnsAddress(field9);
 				break;
+			case 10:
+				const field10 = reader.readString()
+				message.addDnsUpstream(field10);
+				break;
 			default:
 				reader.skipField();
 				break;
@@ -346,6 +368,8 @@ function InfoResFromObject(obj: InfoRes.AsObject | undefined): InfoRes | undefin
 	message.setAllowedIps(obj.allowedIps);
 	message.setDnsEnabled(obj.dnsEnabled);
 	message.setDnsAddress(obj.dnsAddress);
+	(obj.dnsUpstream || [])
+		.forEach((item) => message.addDnsUpstream(item));
 	return message;
 }
 

@@ -10,7 +10,8 @@ require (
 	github.com/desertbit/timer v0.0.0-20180107155436-c41aec40b27f // indirect
 	github.com/docker/docker v1.13.1 // indirect
 	github.com/docker/libnetwork v0.8.0-dev.2.0.20200217033114-6659f7f4d8c1
-	github.com/golang/protobuf v1.4.2
+	github.com/golang/protobuf v1.3.5
+	github.com/google/go-cmp v0.5.0 // indirect
 	github.com/google/uuid v1.1.1
 	github.com/gorilla/mux v1.7.4
 	github.com/gorilla/sessions v1.2.0
@@ -36,9 +37,7 @@ require (
 	golang.org/x/oauth2 v0.0.0-20200107190931-bf48bf16ab8d
 	golang.zx2c4.com/wireguard/wgctrl v0.0.0-20200609130330-bd2cb7843e1b
 	google.golang.org/appengine v1.6.6 // indirect
-	google.golang.org/genproto v0.0.0-20200715011427-11fb19a81f2c // indirect
 	google.golang.org/grpc v1.30.0
-	google.golang.org/protobuf v1.25.0 // indirect
 	gopkg.in/Knetic/govaluate.v2 v2.3.0
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6
 	gopkg.in/square/go-jose.v2 v2.5.1 // indirect
