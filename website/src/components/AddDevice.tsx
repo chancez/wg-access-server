@@ -55,12 +55,18 @@ export class AddDevice extends React.Component<Props> {
       this.props.onAdd();
 
       const info = AppState.info!;
+      var dnsServer;
+      if (info.dnsEnabled) {
+        dnsServer = info.dnsAddress;
+      } else if (info.dnsUpstream) {
+        dnsServer = info.dnsUpstream;
+      }
+
       const configFile = codeBlock`
         [Interface]
         PrivateKey = ${privateKey}
         Address = ${device.address}
-        ${info.dnsEnabled && `DNS = ${info.dnsAddress}`}
-        ${!info.dnsEnabled && info.dnsUpstream && `DNS = ${info.dnsUpstream}`}
+        ${dnsServer && `DNS = ${dnsServer}`}
 
         [Peer]
         PublicKey = ${info.publicKey}
