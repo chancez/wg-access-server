@@ -44,6 +44,7 @@ func Register(app *kingpin.Application) *servecmd {
 	cli.Flag("wireguard-interface", "Set the wireguard interface name").Default("wg0").Envar("WG_WIREGUARD_INTERFACE").StringVar(&cmd.AppConfig.WireGuard.Interface)
 	cli.Flag("wireguard-private-key", "Wireguard private key").Envar("WG_WIREGUARD_PRIVATE_KEY").StringVar(&cmd.AppConfig.WireGuard.PrivateKey)
 	cli.Flag("wireguard-port", "The port that the Wireguard server will listen on").Envar("WG_WIREGUARD_PORT").Default("51820").IntVar(&cmd.AppConfig.WireGuard.Port)
+	cli.Flag("vpn-nat-enabled", "Enable or disable creating iptables rules for performing NAT").Envar("WG_VPN_NAT_ENABLED").Default("true").BoolVar(&cmd.AppConfig.VPN.NATEnabled)
 	cli.Flag("vpn-cidr", "The network CIDR for the VPN").Envar("WG_VPN_CIDR").Default("10.44.0.0/24").StringVar(&cmd.AppConfig.VPN.CIDR)
 	cli.Flag("vpn-gateway-interface", "The gateway network interface (i.e. eth0)").Envar("WG_VPN_GATEWAY_INTERFACE").Default(detectDefaultInterface()).StringVar(&cmd.AppConfig.VPN.GatewayInterface)
 	cli.Flag("vpn-allowed-ips", "A list of networks that VPN clients will be allowed to connect to via the VPN").Envar("WG_VPN_ALLOWED_IPS").Default("0.0.0.0/0").StringsVar(&cmd.AppConfig.VPN.AllowedIPs)
@@ -98,8 +99,11 @@ func (cmd *servecmd) Run() {
 
 		logrus.Infof("wireguard VPN network is %s", conf.VPN.CIDR)
 
-		if err := network.ConfigureForwarding(conf.WireGuard.Interface, conf.VPN.GatewayInterface, conf.VPN.CIDR, conf.VPN.AllowedIPs); err != nil {
-			logrus.Fatal(err)
+		if conf.VPN.NATEnabled {
+			logrus.Infof("Configuring iptables NAT")
+			if err := network.ConfigureForwarding(conf.WireGuard.Interface, conf.VPN.GatewayInterface, conf.VPN.CIDR, conf.VPN.AllowedIPs); err != nil {
+				logrus.Fatal(err)
+			}
 		}
 	}
 

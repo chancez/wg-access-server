@@ -70,6 +70,9 @@ type AppConfig struct {
 		// to enforce network access.
 		// defaults to ["0.0.0.0/0"]
 		AllowedIPs []string `yaml:"allowedIPs"`
+		// NATEnabled configures iptables rules to NAT traffic from the
+		// wireguard container
+		NATEnabled bool `yaml:"natEnabled"`
 	} `yaml:"vpn"`
 	// Configure the embeded DNS server
 	DNS struct {
