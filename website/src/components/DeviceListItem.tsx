@@ -82,6 +82,10 @@ export class DeviceListItem extends React.Component<Props> {
                 <td>{lastSeen(device.lastHandshakeTime)}</td>
               </tr>
               <tr>
+                <td>Address</td>
+                <td>{device.address}</td>
+              </tr>
+              <tr>
                 <td>Public key</td>
                 <td>
                   <PopoverDisplay label="show">{device.publicKey}</PopoverDisplay>

@@ -56,6 +56,7 @@ export class AllDevices extends React.Component {
                 {showProviderCol && <TableCell>Auth Provider</TableCell>}
                 <TableCell>Device</TableCell>
                 <TableCell>Connected</TableCell>
+                <TableCell>Address</TableCell>
                 <TableCell>Last Seen</TableCell>
                 <TableCell>Actions</TableCell>
               </TableRow>
@@ -69,6 +70,7 @@ export class AllDevices extends React.Component {
                   {showProviderCol && <TableCell>{row.ownerProvider}</TableCell>}
                   <TableCell>{row.name}</TableCell>
                   <TableCell>{row.connected ? 'yes' : 'no'}</TableCell>
+                  <TableCell>{row.address}</TableCell>
                   <TableCell>{lastSeen(row.lastHandshakeTime)}</TableCell>
                   <TableCell>
                     <Button variant="outlined" color="secondary" onClick={() => this.deleteDevice(row)}>
